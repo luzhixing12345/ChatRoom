@@ -1,0 +1,14 @@
+
+<image class="circleImage" src="{{userInfo.avatarUrl}}"></image>
+<view class="userNickname">{{userInfo.nickName}}</view>
+
+
+<view class="label-list">
+    <view class="label">Uid</view>
+    <view class="label">{{userInfo.Uid}}</view>
+</view>
+
+<view class="label-list">
+    <view class="label">用户名</view>
+    <view class="label">{{userInfo.account_id}}</view>
+</view>

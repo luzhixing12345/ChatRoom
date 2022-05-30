@@ -1,0 +1,30 @@
+
+<image class="circleImage" src="{{userInfo.avatarUrl}}"></image>
+<view class="userNickname">{{userInfo.nickName}}</view>
+
+<block wx:if="{{userInfo}}">
+
+<view class="label-list">
+    <view class="label">账号</view>
+    <view class="input-box">
+        <input type="text" placeholder="请输入账号" bindinput="getUserAccount"/>
+    </view>
+</view>
+
+<view class="label-list">
+    <view class="label">密码</view>
+    <view class="input-box">
+        <input type="text" placeholder="请输入密码" bindinput="getUserPassword"/>
+    </view>
+</view>
+
+<view class="label-list">
+    <view class="label">确认密码</view>
+    <view class="input-box">
+        <input type="text" placeholder="确认密码" bindinput="confirmUserPassword"/>
+    </view>
+</view>
+</block>
+
+<button wx:if="{{!userInfo}}" type="default" bindtap="getUserProfile" class="buttonType">微信授权</button>
+<button wx:if="{{userInfo}}" type="default" bindtap="register" class="buttonType">注册</button>

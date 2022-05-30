@@ -1,0 +1,28 @@
+
+
+.face {
+    width: 120rpx;
+    height: 120rpx;
+    border-radius: 50%; 
+    margin-right: 40rpx;
+}
+
+.user-list {
+    display: flex;
+    flex-direction: row;
+    margin : 30rpx 20rpx 0rpx 20rpx;
+    justify-content: space-between;
+}
+
+.nick-name {
+    margin-top:20rpx;
+}
+
+.left {
+    display: flex;
+    flex-direction: row;
+}
+
+.right {
+    margin-top: 20rpx;
+}

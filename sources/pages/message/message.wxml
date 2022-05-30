@@ -1,0 +1,14 @@
+
+<block wx:for="{{user_list}}">
+
+<view class="user-list">
+
+    <view class="left">
+
+        <image class="face" src="{{item.avatarUrl}}"></image>    
+        <view class="nick-name">{{item.account_id}}</view>
+    </view>
+    <view class="right">添加好友</view>
+
+</view>
+</block>
