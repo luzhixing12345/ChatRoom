@@ -21,8 +21,27 @@
 .left {
     display: flex;
     flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
 }
 
 .right {
     margin-top: 20rpx;
+}
+
+.msg {
+    color: #a0a0a0;
+    font-size: 28rpx;
+}
+
+
+.time {
+    font-size: 24rpx;
+    color: #a0a0a0;
+    margin-top: 10rpx;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
 }

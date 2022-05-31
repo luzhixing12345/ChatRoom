@@ -1,1 +1,77 @@
-/* pages/chat/chat.wxss */
+
+
+.pub-comment {
+    background-color: #f7f7f7;
+    padding: 20rpx 40rpx;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+}
+
+.pub-left {
+    background-color: #fff;
+    color: #7f7f7f;
+    border-radius: 10rpx;
+    margin-right: 20rpx;
+
+}
+
+.pub-input {
+    padding: 10rpx 20rpx;
+    width: 500rpx;
+}
+
+.pub-button {
+    color: #7f7f7f;
+    border : solid 1rpx #7f7f7f;
+    border-radius: 10rpx;
+    padding: 10rpx 20rpx;
+}
+
+.top {
+    display: flex;
+    flex-direction: row;
+    margin : 20rpx 20rpx 0 20rpx;
+}
+
+.top-right {
+    display: flex;
+    flex-direction: row;
+    margin : 20rpx 20rpx 0rpx 20rpx;
+    position: relative;
+}
+
+.face {
+    width: 100rpx;
+    height: 100rpx;
+    border-radius: 10rpx;
+}
+
+.face-right {
+    width: 100rpx;
+    height: 100rpx;
+    border-radius: 10rpx;
+    align-items: center;
+    position: relative;
+}
+
+.bot {
+    margin-left: 20rpx;
+    margin-right: 20rpx;
+    padding: 10rpx 10rpx;
+    background-color: #f7f7f7;
+    border-radius: 10rpx;
+}
+
+.bot-right {
+    flex : 1;
+    padding: 10rpx 10rpx;
+    background-color: #f7f7f7;
+    border-radius: 10rpx;
+}
+
+.nick {
+    margin-top: 20rpx;
+}

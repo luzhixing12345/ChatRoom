@@ -19,6 +19,7 @@ Page({
         })
         wx.showToast({
           title: '已授权',
+          duration: 500
         })
         app.globalData.userInfo = res.userInfo
         console.log(app.globalData.userInfo)

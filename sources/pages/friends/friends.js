@@ -1,6 +1,8 @@
 
 const app = getApp()
 
+const utils = require("../../utils/util")
+
 Page({
 
     data: {
@@ -15,12 +17,16 @@ Page({
         })
     },
 
-    onLoad: function (options) {
-        
+    onLoad() {
     },
     getAllUser() {
         var that = this;
-        wx.cloud.database().collection('chat_user').get({
+
+        const cmd = wx.cloud.database().command;
+
+        wx.cloud.database().collection('chat_user').where({
+            account_id: cmd.neq(app.globalData.userInfo.account_id)
+        }).get({
             success(res){
                 that.setData({
                     user_list : res.data
@@ -42,10 +48,14 @@ Page({
                 userB_account_id : that.data.user_list[index].account_id,
 
                 record : [],
-                friend_status : false
+                friend_status : false,
+                time: utils.formatTime(new Date())
             },
             success(res) {
                 console.log(res)
+                wx.showToast({
+                  title: '已发送好友申请',
+                })
             }
         })
     },
@@ -72,6 +82,9 @@ Page({
             },
             success(res) {
                 console.log(res)
+                wx.showToast({
+                  title: '已通过好友',
+                })
             }
         })
     },

@@ -1,2 +1,39 @@
-<!--pages/chat/chat.wxml-->
-<text>pages/chat/chat.wxml</text>
+
+
+<block wx:for="{{chatList}}">
+
+    <block wx:if="{{item.id!=userInfo._id}}">
+    <view class="top">
+        <image class = "face" src="{{friend_avatarUrl}}"></image>
+        <view class="bot">
+        <text >{{item.text}}</text>
+    </view>
+    </view>
+    
+    </block>
+
+    <block wx:if="{{item.id==userInfo._id}}">
+    <view class="top">
+        <image class = "face" src="{{userInfo.avatarUrl}}"></image>
+        <view class="bot">
+        <text>{{item.text}}</text>
+        </view>
+    </view>
+    </block>
+
+
+</block>
+
+
+
+
+<view class="pub-comment">
+
+    <view class = "pub-left">
+    
+        <input class = "pub-input" bindinput="getInputValue" value="{{inputValue}}"></input>
+    </view>
+
+    <view class = "pub-button" bindtap="publishMessage">发送</view>
+
+</view>

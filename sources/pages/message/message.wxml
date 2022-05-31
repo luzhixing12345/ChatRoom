@@ -1,14 +1,33 @@
 
-<block wx:for="{{user_list}}">
-
+<block wx:for="{{my_friends}}">
 <view class="user-list">
 
-    <view class="left">
-
-        <image class="face" src="{{item.avatarUrl}}"></image>    
-        <view class="nick-name">{{item.account_id}}</view>
+    <block wx:if="{{item.userA_id==userInfo._id}}">
+    <view class="left" bindtap="startChat" data-index="{{index}}">
+        <view class="flex-row">
+            <image class="face" src="{{item.userB_avatarUrl}}"></image>  
+                <view>
+                <view class="nick-name">{{item.userB_account_id}}</view>
+                <view class="msg">{{item.record[item.record.length-1].text}}</view>
+            </view>  
+        </view>
+        <view class="time">{{item.record[item.record.length-1].time}}</view>
     </view>
-    <view class="right">添加好友</view>
+    </block>
+
+    <block wx:if="{{item.userB_id==userInfo._id}}">
+    <view class="left" bindtap="startChat" data-index="{{index}}">
+
+        <view class="flex-row">
+        <image class="face" bindtap="startChat" src="{{item.userA_avatarUrl}}"></image>    
+        <view>
+            <view class="nick-name">{{item.userA_account_id}}</view>
+            <view class="msg">{{item.record[item.record.length-1].text}}</view>
+        </view>
+        </view>
+        <view class="time">{{item.record[item.record.length-1].time}}</view>
+    </view>
+    </block>
 
 </view>
 </block>
