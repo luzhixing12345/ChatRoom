@@ -8,7 +8,6 @@ App({
     if(wx.getStorageSync('userInfo')){
       this.globalData.userInfo = wx.getStorageSync('userInfo')
       console.log('get storage')
-      console.log(this.globalData.userInfo)
     }
   },
   globalData: {

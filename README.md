@@ -2,7 +2,6 @@
 
 <div align=center><img src="https://raw.githubusercontent.com/learner-lu/picbed/master/ad.jpg" height="300" alt="抚子妹妹"></div>
 
-
 ## 简介
 
 参考[小程序实现微信聊天QQ聊天、加好友聊天，小程序在线聊天](https://www.bilibili.com/video/BV1Gf4y1M7sh?p=3&spm_id_from=pageDriver)
@@ -10,6 +9,12 @@
 ## 项目演示
 
 搜索微信小程序: 聊天室kamilu
+
+## 界面
+
+|登录|注册|
+|:--:|:--:|
+|![20220531154831](https://raw.githubusercontent.com/learner-lu/picbed/master/20220531154831.png)|![20220531154918](https://raw.githubusercontent.com/learner-lu/picbed/master/20220531154918.png)|
 
 ## 使用方法
 
@@ -21,7 +26,7 @@
 
 - 替换 `sources/project.config.json` 中的"appid" 为你的appid
 
-- 使用微信开发者工具打开sources文件夹
+- 使用[微信开发者工具](http://www.ionic.wang/weixin/devtools/download.html)打开sources文件夹
 
 - 复制云开发环境ID,替换app.js中的 env:"kamilu-3g69c1hh0c963d36"
 

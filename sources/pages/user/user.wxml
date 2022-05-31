@@ -12,3 +12,8 @@
     <view class="label">用户名</view>
     <view class="label">{{userInfo.account_id}}</view>
 </view>
+
+<button bindtap="changeAccountId" class="buttonType">修改用户名</button>
+<button bindtap="changePassword" class="buttonType">修改密码</button>
+<button bindtap="changeUserAvater" class="buttonType">修改头像</button>
+<button bindtap="changeUser" class="buttonType">切换用户</button>

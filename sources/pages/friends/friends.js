@@ -1,66 +1,101 @@
-// pages/friends/friends.js
+
+const app = getApp()
+
 Page({
 
-    /**
-     * 页面的初始数据
-     */
     data: {
-
+        
+    },
+    onShow() {
+        this.getAllUser(),
+        this.getNewFriends(),
+        this.getMyfriend(),
+        this.setData({
+            userInfo : app.globalData.userInfo
+        })
     },
 
-    /**
-     * 生命周期函数--监听页面加载
-     */
     onLoad: function (options) {
-
+        
     },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
-
+    getAllUser() {
+        var that = this;
+        wx.cloud.database().collection('chat_user').get({
+            success(res){
+                that.setData({
+                    user_list : res.data
+                })
+            }
+        })
     },
+    addFriend(e) {
+        var index = e.currentTarget.dataset.index;
+        var that = this;
+        wx.cloud.database().collection('chat_record').add({
+            data:{
+                userA_id : app.globalData.userInfo._id,
+                userA_avatarUrl: app.globalData.userInfo.avatarUrl,
+                userA_account_id : app.globalData.userInfo.account_id,
 
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function () {
+                userB_id : that.data.user_list[index]._id,
+                userB_avatarUrl : that.data.user_list[index].avatarUrl,
+                userB_account_id : that.data.user_list[index].account_id,
 
+                record : [],
+                friend_status : false
+            },
+            success(res) {
+                console.log(res)
+            }
+        })
     },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function () {
-
+    getNewFriends() {
+        var that = this;
+        wx.cloud.database().collection('chat_record').where({
+            userB_id: app.globalData.userInfo._id,
+            friend_status : false
+        }).get({
+            success(res) {
+                console.log(res);
+                that.setData({
+                    new_friends : res.data
+                })
+            }
+        })
     },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function () {
-
+    acceptNewFriend(e) {
+        var index = e.currentTarget.dataset.index;
+        var that =  this;
+        wx.cloud.database().collection('chat_record').doc(that.data.new_friends[index]._id).update({
+            data:{
+                friend_status: true
+            },
+            success(res) {
+                console.log(res)
+            }
+        })
     },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function () {
-
+    getMyfriend() {
+        var that = this;
+        const DB = wx.cloud.database().command;
+        wx.cloud.database().collection('chat_record').where(
+            DB.or([
+                {
+                    userA_id:app.globalData.userInfo._id,
+                    friend_status: true
+                },
+                {
+                    userB_id:app.globalData.userInfo._id,
+                    friend_status: true
+                }
+            ])
+        ).get({
+            success(res){
+                console.log(res)
+                that.setData({
+                    my_friends : res.data
+                })
+            }
+        })
     }
 })
