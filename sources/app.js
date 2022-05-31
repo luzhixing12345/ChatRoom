@@ -5,8 +5,10 @@ App({
     wx.cloud.init({
       env:"kamilu-3g69c1hh0c963d36"
     })
-    if(wx.getStorageInfoSync('userInfo')){
-      this.globalData.userInfo = wx.getStorageInfoSync('userInfo')
+    if(wx.getStorageSync('userInfo')){
+      this.globalData.userInfo = wx.getStorageSync('userInfo')
+      console.log('get storage')
+      console.log(this.globalData.userInfo)
     }
   },
   globalData: {

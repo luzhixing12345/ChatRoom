@@ -6,7 +6,12 @@ Page({
       
   },
   onLoad() {
-    
+    console.log(app.globalData.userInfo)
+    if (app.globalData.userInfo.Uid!=undefined){
+      wx.switchTab({
+        url: '/pages/message/message',
+      })
+    }
   },
   
   getUserAccount(e) {

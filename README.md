@@ -11,13 +11,24 @@
 
 搜索微信小程序: 聊天室kamilu
 
-
 ## 使用方法
 
-- 复制云开发环境ID,替换app.js中的 env:"cloud1-9gv9ynmtc4528521"
+- 进入[微信小程序官网](https://mp.weixin.qq.com/cgi-bin/wx)
+- 注册,登录
+- 获取AppID
+
+  ![20220525231716](https://raw.githubusercontent.com/learner-lu/picbed/master/20220525231716.png)
+
+- 替换 `sources/project.config.json` 中的"appid" 为你的appid
+
+- 使用微信开发者工具打开sources文件夹
+
+- 复制云开发环境ID,替换app.js中的 env:"kamilu-3g69c1hh0c963d36"
 
   ![20220530231731](https://raw.githubusercontent.com/learner-lu/picbed/master/20220530231731.png)
 
-- 新建数据库表,chat_user和chat_record,数据权限改为所有的人可读写
+- 新建数据库表, `chat_user` 和 `chat_record` ,数据权限改为所有的人可读写
 
   ![20220530232831](https://raw.githubusercontent.com/learner-lu/picbed/master/20220530232831.png)
+
+- 编译
