@@ -1,5 +1,5 @@
 
-<image class="circleImage" src="{{userInfo.avatarUrl}}"></image>
+<image class="circleImage" src="{{avatarUrl}}"></image>
 <view class="userNickname">{{userInfo.nickName}}</view>
 
 

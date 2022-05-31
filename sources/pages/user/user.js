@@ -8,13 +8,15 @@ Page({
 
   onShow() {
     this.setData({
-      userInfo: app.globalData.userInfo
+      userInfo: app.globalData.userInfo,
+      avatarUrl : app.globalData.userInfo.avatarUrl
    })
   },
 
   onLoad() {
     this.setData({
-        userInfo: app.globalData.userInfo
+        userInfo: app.globalData.userInfo,
+        avatarUrl : app.globalData.userInfo.avatarUrl
      })
      console.log(app.globalData.userInfo._id)
   },
@@ -60,7 +62,7 @@ Page({
   });
   },
     upload_file: function(e) {
-      var newAvatarFileUrl;
+      var that = this;
       wx.showLoading({
           title: "上传中"
       });
@@ -71,12 +73,12 @@ Page({
               // console.log()
               // console.log(cloudPath)
               console.log(res.fileID)
-              newAvatarFileUrl = res.fileID
+              that.updateAvatar(res.fileID)
               wx.hideLoading();
               wx.showToast({
                   title: "上传成功",
                   icon: "success",
-                  duration: 3000
+                  duration: 1000
               });
           },
           fail: function(a) {
@@ -88,11 +90,11 @@ Page({
               });
           }
       });
-      console.log(newAvatarFileUrl)
-      this.updateAvatar(newAvatarFileUrl)
+      
     },
     updateAvatar(url) {
-      console.log(app.globalData.userInfo._id)
+      var that = this;
+      console.log(url)
       wx.cloud.database().collection('chat_user').doc(app.globalData.userInfo._id).update({
           data :{
             avatarUrl : url
@@ -101,7 +103,12 @@ Page({
             console.log(res)
             wx.showToast({
               title: '头像更新成功',
+            });
+            that.setData({
+              avatarUrl: url
             })
+            app.globalData.userInfo.avatarUrl = url;
+            wx.setStorageSync('userInfo', app.globalData.userInfo)
           }
       })
     }
