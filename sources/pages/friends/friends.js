@@ -9,13 +9,10 @@ Page({
         
     },
     onShow() {
-        this.setData({
-            userInfo : app.globalData.userInfo
-        })
-        this.getAllUser()
+
         this.getNewFriends()
         this.getMyfriend()
-        
+        this.getAllUser()
     },
 
     onLoad() {
@@ -29,11 +26,11 @@ Page({
         var that = this;
 
         const _ = wx.cloud.database().command;
-        console.log(that.data.userInfo.friends)
+        
         wx.cloud.database().collection('chat_user').where({
-            _id: _.neq(that.data.userInfo._id).and(_.nin(that.data.userInfo.friends))
+            _id: _.nin(that.data.userInfo.friends).and(_.neq(that.data.userInfo._id))
         }).get({
-            success(res){
+            success(res) {
                 console.log(res)
                 that.setData({
                     user_list : res.data
@@ -69,6 +66,9 @@ Page({
 
     },
     getNewFriends() {
+        this.setData({
+            userInfo : app.globalData.userInfo
+        })
         var that = this;
         wx.cloud.database().collection('chat_record').where({
             userB_id: that.data.userInfo._id,
@@ -93,6 +93,10 @@ Page({
                 console.log(res)
                 wx.showToast({
                   title: '已通过好友',
+                })
+
+                that.setData({
+                    new_accepted_friend_id : that.data.new_friends[index]._id
                 })
             }
         })
@@ -132,6 +136,7 @@ Page({
                         friends : A_friends
                     }
                 })
+                that.onShow()
             }
         })
     },

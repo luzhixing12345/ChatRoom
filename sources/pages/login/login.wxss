@@ -11,7 +11,9 @@
 }
 
 .circleImage{
-    margin-left: 250rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top: 100rpx;
     height: 245rpx;
     width: 245rpx;
@@ -21,7 +23,9 @@
 
 .userNickname {
     margin-top: 50rpx;
-    margin-left: 300rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: large;
 }
 

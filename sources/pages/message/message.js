@@ -51,12 +51,15 @@ Page({
                     friend_status: true
                 }
             ])
-        ).get({
-            success(res){
-                console.log(res)
+        ).watch({
+            onChange: function(snapshot){
+
                 that.setData({
-                    my_friends : res.data
+                    my_friends : snapshot.docs
                 })
+            },
+            onError : function(err){
+                console.log(err)
             }
         })
     },

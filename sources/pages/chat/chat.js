@@ -66,12 +66,17 @@ Page({
 
     getChatList() {
         var that = this;
-        wx.cloud.database().collection('chat_record').doc(that.data.recordId).get({
-            success(res) {
-                console.log(res.data)
+        wx.cloud.database().collection('chat_record').doc(that.data.recordId).watch({
+            onChange: function(snapshot) {
+                
+                console.log("123")
+                console.log(snapshot.docs[0].record)
                 that.setData({
-                    chatList: res.data.record
+                    chatList : snapshot.docs[0].record
                 })
+            },
+            onError: function(err){
+                console.log(err)
             }
         })
     },

@@ -1,5 +1,5 @@
-
 const app = getApp()
+var count = 0
 
 Page({
   data: {
@@ -64,10 +64,11 @@ Page({
       });
       wx.cloud.uploadFile({
           filePath: e,//图片路径
-          cloudPath: app.globalData.userInfo.account_id + ".png",
+          cloudPath: app.globalData.userInfo.account_id + count + ".png",
           success(res) {
               // console.log()
               // console.log(cloudPath)
+              count += 1
               console.log(res.fileID)
               that.updateAvatar(res.fileID)
               wx.hideLoading();
@@ -111,6 +112,8 @@ Page({
         }
       })
 
+      console.log(app.globalData.userInfo.avatarUrl)
+
       // 更新数据集中用户的头像信息
       wx.cloud.database().collection('chat_user').doc(app.globalData.userInfo._id).update({
           data :{
@@ -128,6 +131,9 @@ Page({
             wx.setStorageSync('userInfo', app.globalData.userInfo)
           }
       })
+
+      this.onShow()
+
     }
 
     

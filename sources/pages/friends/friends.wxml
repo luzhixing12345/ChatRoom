@@ -51,8 +51,12 @@
 
     <view class="left">
 
+    <block wx:if="{{item._id != new_accepted_friend_id}}">
+
         <image class="face" src="{{item.avatarUrl}}"></image>    
         <view class="nick-name">{{item.account_id}}</view>
+
+    </block>
     </view>
     <view class="right">
     

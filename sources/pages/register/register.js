@@ -1,6 +1,8 @@
 
 const app = getApp()
 
+// var sameAccountId = false;
+
 Page({
   data: {
       
@@ -53,6 +55,23 @@ Page({
   register() {
     var that = this;
     if (!this.registerCheck())return;
+
+    // wx.cloud.database().collection('chat_user').where({
+    //   account_id: that.data.account_id
+    // }).get({
+    //   success(res) {
+    //     console.log(res)
+    //     if (res.data.length>0){
+    //       wx.showToast({
+    //         icon : 'error',
+    //         title: '昵称重复',
+    //       })
+    //       sameAccountId = true
+    //     }
+    //   }
+    // })
+
+    // if (sameAccountId) return;
     wx.cloud.database().collection('chat_user').add({
       data:{
         avatarUrl: that.data.userInfo.avatarUrl,

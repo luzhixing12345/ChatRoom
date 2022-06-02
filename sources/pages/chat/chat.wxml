@@ -13,11 +13,11 @@
     </block>
 
     <block wx:if="{{item.id==userInfo._id}}">
-    <view class="top">
-        <image class = "face" src="{{userInfo.avatarUrl}}"></image>
-        <view class="bot">
+    <view class="top-right">
+        <view class="bot-right">
         <text>{{item.text}}</text>
         </view>
+        <image class = "face-right" src="{{userInfo.avatarUrl}}"></image>
     </view>
     </block>
 
