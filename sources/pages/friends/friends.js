@@ -31,7 +31,8 @@ Page({
             _id: _.nin(that.data.userInfo.friends).and(_.neq(that.data.userInfo._id))
         }).get({
             success(res) {
-                console.log(res)
+                console.log("user_list")
+                console.log(res.data)
                 that.setData({
                     user_list : res.data
                 })
@@ -90,13 +91,13 @@ Page({
                 friend_status: true
             },
             success(res) {
-                console.log(res)
+                //console.log(res)
                 wx.showToast({
                   title: '已通过好友',
                 })
 
                 that.setData({
-                    new_accepted_friend_id : that.data.new_friends[index]._id
+                    new_accepted_friend_id : that.data.new_friends[index].userA_id
                 })
             }
         })
@@ -126,7 +127,7 @@ Page({
             _id : that.data.new_friends[index].userA_id
         }).get({
             success(res) {
-                console.log(res)
+                //console.log(res)
                 var A_friends = res.data[0].friends;
                 A_friends.push(that.data.userInfo._id)
                 wx.cloud.database().collection('chat_user').where({
@@ -158,7 +159,7 @@ Page({
             ])
         ).get({
             success(res){
-                console.log(res)
+                //console.log(res)
                 that.setData({
                     my_friends : res.data
                 })
