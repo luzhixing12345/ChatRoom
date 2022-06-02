@@ -9,25 +9,32 @@ Page({
         
     },
     onShow() {
-        this.getAllUser(),
-        this.getNewFriends(),
-        this.getMyfriend(),
+        this.setData({
+            userInfo : app.globalData.userInfo
+        })
+        this.getAllUser()
+        this.getNewFriends()
+        this.getMyfriend()
+        
+    },
+
+    onLoad() {
         this.setData({
             userInfo : app.globalData.userInfo
         })
     },
 
-    onLoad() {
-    },
+    // 获取所有用户信息
     getAllUser() {
         var that = this;
 
-        const cmd = wx.cloud.database().command;
-
+        const _ = wx.cloud.database().command;
+        console.log(that.data.userInfo.friends)
         wx.cloud.database().collection('chat_user').where({
-            account_id: cmd.neq(app.globalData.userInfo.account_id)
+            _id: _.neq(that.data.userInfo._id).and(_.nin(that.data.userInfo.friends))
         }).get({
             success(res){
+                console.log(res)
                 that.setData({
                     user_list : res.data
                 })
@@ -37,15 +44,16 @@ Page({
     addFriend(e) {
         var index = e.currentTarget.dataset.index;
         var that = this;
+
         wx.cloud.database().collection('chat_record').add({
             data:{
-                userA_id : app.globalData.userInfo._id,
-                userA_avatarUrl: app.globalData.userInfo.avatarUrl,
-                userA_account_id : app.globalData.userInfo.account_id,
+                userA_id : that.data.userInfo._id,
+                userA_account_id : that.data.userInfo.account_id,
+                userA_avatarUrl : that.data.userInfo.avatarUrl,
 
                 userB_id : that.data.user_list[index]._id,
-                userB_avatarUrl : that.data.user_list[index].avatarUrl,
                 userB_account_id : that.data.user_list[index].account_id,
+                userB_avatarUrl : that.data.user_list[index].avatarUrl,
 
                 record : [],
                 friend_status : false,
@@ -58,11 +66,12 @@ Page({
                 })
             }
         })
+
     },
     getNewFriends() {
         var that = this;
         wx.cloud.database().collection('chat_record').where({
-            userB_id: app.globalData.userInfo._id,
+            userB_id: that.data.userInfo._id,
             friend_status : false
         }).get({
             success(res) {
@@ -87,18 +96,58 @@ Page({
                 })
             }
         })
+
+        // AB成为朋友
+        wx.cloud.database().collection('chat_user').where({
+            _id : that.data.userInfo._id
+        }).get({
+            success(res) {
+                console.log(res.data)
+                var my_friends = res.data[0].friends;
+                my_friends.push(that.data.new_friends[index].userA_id)
+                app.globalData.userInfo.friends = my_friends                
+                wx.cloud.database().collection('chat_user').where({
+                    _id : that.data.userInfo._id
+                }).update({
+                    data : {
+                        friends : my_friends
+                    }
+                })
+            }
+        })
+
+    
+
+        wx.cloud.database().collection('chat_user').where({
+            _id : that.data.new_friends[index].userA_id
+        }).get({
+            success(res) {
+                console.log(res)
+                var A_friends = res.data[0].friends;
+                A_friends.push(that.data.userInfo._id)
+                wx.cloud.database().collection('chat_user').where({
+                    _id : that.data.new_friends[index].userA_id
+                }).update({
+                    data : {
+                        friends : A_friends
+                    }
+                })
+            }
+        })
     },
+
+    // 对话信息
     getMyfriend() {
         var that = this;
         const DB = wx.cloud.database().command;
         wx.cloud.database().collection('chat_record').where(
             DB.or([
                 {
-                    userA_id:app.globalData.userInfo._id,
+                    userA_id:that.data.userInfo._id,
                     friend_status: true
                 },
                 {
-                    userB_id:app.globalData.userInfo._id,
+                    userB_id:that.data.userInfo._id,
                     friend_status: true
                 }
             ])
@@ -109,6 +158,17 @@ Page({
                     my_friends : res.data
                 })
             }
+        })
+
+        
+    },
+
+
+    startChat(e) {
+        var index = e.currentTarget.dataset.index;
+
+        wx.navigateTo({
+          url: '/pages/chat/chat?id=' + this.data.my_friends[index]._id
         })
     }
 })

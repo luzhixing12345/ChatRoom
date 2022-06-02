@@ -7,7 +7,7 @@ Page({
   },
   onLoad() {
     console.log(app.globalData.userInfo)
-    if (app.globalData.userInfo.Uid){
+    if (app.globalData.userInfo!=null){
       wx.switchTab({
         url: '/pages/message/message',
       })
@@ -33,6 +33,7 @@ Page({
           success(res) {
               console.log(res)
               if(res.data.length>0){
+                  // 拿到 _id
                   app.globalData.userInfo = res.data[0]
                   wx.setStorageSync('userInfo', res.data[0])
                   wx.switchTab({

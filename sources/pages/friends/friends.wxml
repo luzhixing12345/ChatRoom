@@ -26,7 +26,7 @@
 <view class="user-list">
 
     <block wx:if="{{item.userA_id==userInfo._id}}">
-    <view class="left">
+    <view class="left" bindtap="startChat" data-index="{{index}}">
 
         <image class="face" src="{{item.userB_avatarUrl}}"></image>    
         <view class="nick-name">{{item.userB_account_id}}</view>
@@ -34,7 +34,7 @@
     </block>
 
     <block wx:if="{{item.userB_id==userInfo._id}}">
-    <view class="left">
+    <view class="left" bindtap="startChat" data-index="{{index}}">
 
         <image class="face" src="{{item.userA_avatarUrl}}"></image>    
         <view class="nick-name">{{item.userA_account_id}}</view>
@@ -45,7 +45,7 @@
 </block>
 
 
-<view class="label">附近的人</view>
+<view class="label">其他用户</view>
 <block wx:for="{{user_list}}">
 <view class="user-list">
 
@@ -55,6 +55,7 @@
         <view class="nick-name">{{item.account_id}}</view>
     </view>
     <view class="right">
+    
     
     <button size="mini" bindtap="addFriend" data-index="{{index}}">添加好友</button>
     

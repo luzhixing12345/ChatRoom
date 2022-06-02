@@ -1,15 +1,14 @@
 
 <image class="circleImage" src="{{avatarUrl}}"></image>
-<view class="userNickname">{{userInfo.nickName}}</view>
+
 
 
 <view class="label-list">
-    <view class="label">Uid</view>
-    <view class="label">{{userInfo.Uid}}</view>
+    <view class="label">微信名:</view>
+    <view class="label">{{userInfo.nickName}}</view>
 </view>
-
 <view class="label-list">
-    <view class="label">用户名</view>
+    <text class="label" space="emsp"> 账号:</text>
     <view class="label">{{userInfo.account_id}}</view>
 </view>
 

@@ -5,21 +5,21 @@
 <block wx:if="{{userInfo}}">
 
 <view class="label-list">
-    <view class="label">账号</view>
+    <text class="label" space="emsp">账号  </text>
     <view class="input-box">
-        <input type="text" placeholder="请输入账号" bindinput="getUserAccount"/>
+        <input type="text" placeholder="请输入账号" bindinput="getUserAccountId"/>
     </view>
 </view>
 
 <view class="label-list">
-    <view class="label">密码</view>
+    <text class="label" space="emsp">密码  </text>
     <view class="input-box">
         <input type="text" placeholder="请输入密码" bindinput="getUserPassword"/>
     </view>
 </view>
 
 <view class="label-list">
-    <view class="label">确认密码</view>
+    <text class="label">确认密码</text>
     <view class="input-box">
         <input type="text" placeholder="确认密码" bindinput="confirmUserPassword"/>
     </view>

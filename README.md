@@ -37,3 +37,7 @@
   ![20220530232831](https://raw.githubusercontent.com/learner-lu/picbed/master/20220530232831.png)
 
 - 编译
+
+## 技术参考
+
+- [云存储](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/guide/storage/api.html)

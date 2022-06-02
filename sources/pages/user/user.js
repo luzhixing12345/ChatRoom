@@ -14,12 +14,8 @@ Page({
   },
 
   onLoad() {
-    this.setData({
-        userInfo: app.globalData.userInfo,
-        avatarUrl : app.globalData.userInfo.avatarUrl
-     })
-     console.log(app.globalData.userInfo._id)
   },
+
   changeUser() {
     app.globalData.userInfo = null;
     wx.navigateTo({
@@ -95,6 +91,27 @@ Page({
     updateAvatar(url) {
       var that = this;
       console.log(url)
+
+      // 更新聊天记录数据库中头像信息
+      wx.cloud.database().collection('chat_record').where({
+        userA_avatarUrl : app.globalData.userInfo.avatarUrl,
+        userA_account_id : app.globalData.userInfo.account_id
+      }).update({
+        data : {
+        userA_avatarUrl : url
+        }
+      })
+
+      wx.cloud.database().collection('chat_record').where({
+        userB_avatarUrl : app.globalData.userInfo.avatarUrl,
+        userB_account_id : app.globalData.userInfo.account_id
+      }).update({
+        data : {
+        userB_avatarUrl : url
+        }
+      })
+
+      // 更新数据集中用户的头像信息
       wx.cloud.database().collection('chat_user').doc(app.globalData.userInfo._id).update({
           data :{
             avatarUrl : url
@@ -112,4 +129,6 @@ Page({
           }
       })
     }
+
+    
 })

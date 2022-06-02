@@ -21,6 +21,7 @@ Page({
           title: '已授权',
           duration: 500
         })
+        // 加入全局变量
         app.globalData.userInfo = res.userInfo
         console.log(app.globalData.userInfo)
       }
@@ -33,7 +34,7 @@ Page({
         userInfo: app.globalData.userInfo
     })
   },
-  getUserAccount(e) {
+  getUserAccountId(e) {
     this.setData({
       account_id : e.detail.value
     })
@@ -50,35 +51,49 @@ Page({
   },
 
   register() {
-    if (this.data.ps1 != this.data.ps2) {
-      wx.showToast({
-        icon :'none',
-        title: '密码不相同',
-      })
-      return
-    }
     var that = this;
-    var Uid = Date.now();
+    if (!this.registerCheck())return;
     wx.cloud.database().collection('chat_user').add({
       data:{
-        Uid: Uid,
         avatarUrl: that.data.userInfo.avatarUrl,
-        nickName: that.data.userInfo.nickName,
+        nickName : that.data.userInfo.nickName,
         account_id: that.data.account_id,
-        password: that.data.ps2
+        password: that.data.ps2,
+        friends: [],
+        new_friends: []
       },
       success(res){
         console.log(res)
-        wx.showToast({
-          title: '注册成功',
-        }),
+        // 将用户名和密码保存到全局变量 app.globalData中
         app.globalData.userInfo.account_id = that.data.account_id;
         app.globalData.userInfo.password = that.data.password;
-        app.globalData.userInfo.Uid = Uid;
         wx.switchTab({
           url: '/pages/message/message',
         })
       }
     })
+  },
+
+  registerCheck() {
+    if (this.data.ps1 != this.data.ps2) {
+      wx.showToast({
+        icon :'error',
+        title: '密码不相同',
+      })
+      return false
+    } else if (this.data.ps1.length > 10) {
+      wx.showToast({
+        icon : 'error',
+        title: '密码过长',
+      })
+      return false
+    } else if (this.data.account_id.length > 10) {
+      wx.showToast({
+        icon : 'error',
+        title: '昵称过长',
+      })
+      return false
+    }
+    return true
   }
 })
