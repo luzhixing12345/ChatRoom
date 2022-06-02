@@ -22,7 +22,7 @@ Page({
       url: '/pages/login/login',
     })
   },
-  changeUserAvater() {
+  changeUserAvatar() {
     let a = this;
     wx.showActionSheet({
         itemList: [ "从相册中选择", "拍照" ],

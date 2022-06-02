@@ -12,5 +12,5 @@
     <view class="label">{{userInfo.account_id}}</view>
 </view>
 
-<button bindtap="changeUserAvater" class="buttonType">修改头像</button>
+<button bindtap="changeUserAvatar" class="buttonType">修改头像</button>
 <button bindtap="changeUser" class="buttonType">切换用户</button>
