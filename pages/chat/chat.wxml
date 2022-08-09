@@ -1,6 +1,6 @@
 
-
-<block wx:for="{{chatList}}">
+<scroll-view scroll-y="true" scroll-into-view="{{scrollLast}}" scroll-with-animation="true" class='chat_content'>
+<view wx:for="{{chatList}}">
 
     <block wx:if="{{item.id!=userInfo._id}}">
     <view class="top">
@@ -20,20 +20,17 @@
         <image class = "face-right" src="{{userInfo.avatarUrl}}"></image>
     </view>
     </block>
-
-
-</block>
-
-
-
+</view>
+<view id="toView" class="test"></view>
+</scroll-view>
 
 <view class="pub-comment">
 
     <view class = "pub-left">
     
-        <input class = "pub-input" bindinput="getInputValue" value="{{inputValue}}"></input>
+        <input class="pub-input" bindinput="handleInput" value="{{inputValue}}"></input>
     </view>
 
-    <view class = "pub-button" bindtap="publishMessage">发送</view>
+    <view class="pub-button{{inputValue==''?'':'-with-text'}}" bindtap="publishMessage{{inputValue==''?'123':''}}">发送</view>
 
 </view>

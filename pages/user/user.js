@@ -36,7 +36,8 @@ Page({
   //a：选择的类型  //album:相册   //camera拍照
   chooseWxImageShop: function(a) {
   var e = this;
-  wx.chooseImage({
+  wx.chooseMedia({
+      mediaType : ["image"],
       sizeType: [ "original", "compressed" ],
       sourceType: [ a ],//类型
       count:1,
@@ -52,12 +53,13 @@ Page({
               })
           }else{
               //把图片上传到服务器
-              e.upload_file(a.tempFilePaths[0])
+              e.upload_file(a.tempFiles[0].tempFilePath)
           }
       }
   });
   },
     upload_file: function(e) {
+      console.log(e);
       var that = this;
       wx.showLoading({
           title: "上传中"
@@ -66,8 +68,7 @@ Page({
           filePath: e,//图片路径
           cloudPath: app.globalData.userInfo.account_id + count + ".png",
           success(res) {
-              // console.log()
-              // console.log(cloudPath)
+            
               count += 1
               console.log(res.fileID)
               that.updateAvatar(res.fileID)

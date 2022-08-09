@@ -8,6 +8,7 @@ Page({
 
     data: {
         inputValue : "",
+        time : 0
     },
 
     onLoad :function (options) {
@@ -24,6 +25,13 @@ Page({
     },
 
     publishMessage(){
+        if (this.data.inputValue == "") {
+            wx.showToast({
+                icon: "none",
+                title: '不能发送空消息',
+            })
+            return;
+        }
         var that = this;
         wx.cloud.database().collection('chat_record').doc(that.data.recordId).get({
             success(res) {
@@ -60,19 +68,33 @@ Page({
     },
 
 
-    getInputValue(e) {
-        this.data.inputValue = e.detail.value
+    handleInput(e) {
+        clearTimeout(this.data.time)
+        var that = this;
+        this.data.time = setTimeout(() => {
+            that.getInputValue(e.detail.value)
+        }, 200)
     },
+
+    getInputValue(value) {
+        this.setData({
+            inputValue: value
+        })
+    },
+
 
     getChatList() {
         var that = this;
         wx.cloud.database().collection('chat_record').doc(that.data.recordId).watch({
             onChange: function(snapshot) {
                 
-                console.log("123")
-                console.log(snapshot.docs[0].record)
+                // console.log("123")
+                // console.log(snapshot.docs[0].record)
                 that.setData({
                     chatList : snapshot.docs[0].record
+                })
+                that.setData({
+                    scrollLast: "toView"
                 })
             },
             onError: function(err){
@@ -104,10 +126,8 @@ Page({
                     friend_account_id: friend_account_id,
                     friend_avatarUrl : friend_avatarUrl
                 })
-                
             }
         })
-
     }
 
 })

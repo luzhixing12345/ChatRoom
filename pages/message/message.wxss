@@ -1,0 +1,70 @@
+
+
+.face {
+    width: 120rpx;
+    height: 120rpx;
+    border-radius: 50%; 
+    margin-right: 40rpx;
+  }
+  
+  .user-list {
+    display: flex;
+    flex-direction: row;
+    margin : 30rpx 20rpx 0rpx 20rpx;
+    justify-content: space-between;
+  }
+  
+  .nick-name {
+    margin-top:20rpx;
+  }
+  
+  .left {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .right {
+    margin-top: 20rpx;
+  }
+
+  .no-message {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .no-message image {
+    margin-top: 200rpx;
+  }
+  
+  .msg {
+    display: inline-block; 
+    color: #a0a0a0;
+    font-size: 28rpx;
+    overflow: hidden;
+    width : 400rpx;
+    white-space : nowrap;
+    text-overflow:ellipsis;
+  }
+  
+  
+  .time {
+    font-size: 24rpx;
+    color: #a0a0a0;
+    margin-top: 10rpx;
+  }
+  
+  .flex-row {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .no-message {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .no-message image {
+    margin-top: 200rpx;
+  }

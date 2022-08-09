@@ -1,4 +1,8 @@
 
+<view wx:if="{{my_friends.length==0}}" class='no-message'>
+<image src="../../images/no_message.png"></image>
+</view>
+
 <block wx:for="{{my_friends}}">
 <view class="user-list">
 
