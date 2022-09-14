@@ -3,6 +3,7 @@
 <image src="../../images/no_message.png"></image>
 </view>
 
+<view wx:else>
 <block wx:for="{{my_friends}}">
 <view class="user-list">
 
@@ -35,3 +36,4 @@
 
 </view>
 </block>
+</view>

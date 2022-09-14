@@ -56,41 +56,44 @@ Page({
     var that = this;
     if (!this.registerCheck())return;
 
-    // wx.cloud.database().collection('chat_user').where({
-    //   account_id: that.data.account_id
-    // }).get({
-    //   success(res) {
-    //     console.log(res)
-    //     if (res.data.length>0){
-    //       wx.showToast({
-    //         icon : 'error',
-    //         title: '昵称重复',
-    //       })
-    //       sameAccountId = true
-    //     }
-    //   }
-    // })
-
-    // if (sameAccountId) return;
-    wx.cloud.database().collection('chat_user').add({
-      data:{
-        avatarUrl: that.data.userInfo.avatarUrl,
-        nickName : that.data.userInfo.nickName,
-        account_id: that.data.account_id,
-        password: that.data.ps2,
-        friends: [],
-        new_friends: []
-      },
-      success(res){
+    wx.cloud.database().collection('chat_user').where({
+      account_id: that.data.account_id
+    }).get({
+      success(res) {
         console.log(res)
-        // 将用户名和密码保存到全局变量 app.globalData中
-        app.globalData.userInfo.account_id = that.data.account_id;
-        app.globalData.userInfo.password = that.data.password;
-        wx.switchTab({
-          url: '/pages/message/message',
-        })
+        // 去除重复用户名
+        if (res.data.length>0){
+          wx.showToast({
+            icon : 'error',
+            title: '昵称重复',
+          })
+          return;
+        }
+        else {
+          wx.cloud.database().collection('chat_user').add({
+            data:{
+              avatarUrl: that.data.userInfo.avatarUrl,
+              nickName : that.data.userInfo.nickName,
+              account_id: that.data.account_id,
+              password: that.data.ps2,
+              friends: [],
+              new_friends: []
+            },
+            success(res){
+              console.log(res)
+              // 将用户名和密码保存到全局变量 app.globalData中
+              app.globalData.userInfo.account_id = that.data.account_id;
+              app.globalData.userInfo.password = that.data.password;
+              wx.switchTab({
+                url: '/pages/message/message',
+              })
+            }
+          })
+        }
       }
     })
+
+
   },
 
   registerCheck() {

@@ -14,7 +14,8 @@ Page({
     onShow() {
         
         this.setData({
-            userInfo : app.globalData.userInfo
+            userInfo : app.globalData.userInfo,
+            my_friends : []
         })
         this.loadUser()
         this.getMyfriend()
@@ -38,22 +39,22 @@ Page({
 
 
     getMyfriend() {
+        // 获取所有成功添加好友的朋友
         var that = this;
         const DB = wx.cloud.database().command;
         wx.cloud.database().collection('chat_record').where(
             DB.or([
                 {
-                    userA_id: that.data.userInfo._id,
+                    userA_id: app.globalData.userInfo._id,
                     friend_status: true
                 },
                 {
-                    userB_id: that.data.userInfo._id,
+                    userB_id: app.globalData.userInfo._id,
                     friend_status: true
                 }
             ])
         ).watch({
             onChange: function(snapshot){
-
                 that.setData({
                     my_friends : snapshot.docs
                 })
